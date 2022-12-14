@@ -18,7 +18,6 @@ class Game:
         self.caption = pygame.display.set_caption("Snake")
 
         self.screen = pygame.display.set_mode((500,500))
-        # self.screen_color= self.screen.fill('#BFE7CB')
         self.window_size = 500
         self.tile_size = 50
         self.loop = True
@@ -27,11 +26,12 @@ class Game:
         self.snake = Snake(self)
         self.board = Board(self)
 
+        self.alive = True
 
 
     def game_loop(self): 
         while self.loop == True :
-            self.screen_color= self.screen.fill('#BFE7CB')
+            self.screen_color= self.screen.fill('#FFFFFF')
             self.draw()
             
             self.event_check()
@@ -43,9 +43,20 @@ class Game:
     def draw(self):
         self.board.draw_game()
         
-        self.snake.draw_snake(self.screen)
-        self.apple.draw_apple(self.screen)
-        
+        if self.alive == True :
+            self.apple.draw_apple()
+            self.snake.draw_snake()
+        else :
+            font = pygame.font.Font('freesansbold.ttf', 50)
+            text = font.render('GAME OVER', True, '#000000')
+            textRect = text.get_rect()
+            textRect.center = (self.window_size // 2, self.window_size // 2)
+            self.screen.blit(text, textRect)
+
+        font = pygame.font.SysFont('freesansbold.ttf', 30)
+        text_surface = font.render(str(self.snake.score), False, '#000000')
+        self.screen.blit(text_surface, (10,10))
+
 
     def event_check(self):
         for event in pygame.event.get():
@@ -56,7 +67,7 @@ class Game:
             if event.type == pygame.QUIT:
                 self.loop = False
 
-        self.snake.snake_check(self.screen)
+        self.snake.snake_check()
         
 
 

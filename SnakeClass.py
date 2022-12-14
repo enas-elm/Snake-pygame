@@ -7,6 +7,7 @@ class Snake:
         self.game = game
         self.color = '#2B5A39'
         self.size = 50
+        self.length = 50
         self.surface = pygame.Surface((self.size,self.size))
 
         self.x_snake = 200
@@ -50,29 +51,28 @@ class Snake:
                     self.up = self.left = self.right = False
 
 
-    def draw_snake(self, screen):
+    def draw_snake(self):
         self.move_snake()
-        self.rect = pygame.rect.Rect((self.x_snake, self.y_snake, self.size, self.size))
-        pygame.draw.rect(screen, self.color, self.rect)
+        self.rect = pygame.rect.Rect((self.x_snake, self.y_snake, self.size, self.length))
+        pygame.draw.rect(self.game.screen, self.color, self.rect)
     
-        font = pygame.font.SysFont('freesansbold.ttf', 30)
-        text_surface = font.render(str(self.score), False, '#314938')
-        self.game.screen.blit(text_surface, (10,10))
 
-    def check_out_screen(self, screen):
-        if self.x_snake < 0 or self.x_snake > 500 or self.y_snake < 0 or self.y_snake > 500:
-            print('dead')
+    def check_out_screen(self):
+        if self.x_snake < 0 or self.x_snake >= 500 or self.y_snake < 0 or self.y_snake >= 500:
+            self.game.alive = False
+            
 
-    def check_eat_apple(self, apple):
+    def check_eat_apple(self):
         if self.x_snake == self.game.apple.x_food and self.y_snake == self.game.apple.y_food:
             self.game.apple.rand_position_apple()
             self.score = self.score + 1
+            self.length = self.length + 50
             print(self.score)
 
             
 
-    def snake_check(self, screen):
-        self.check_out_screen(screen)
-        self.check_eat_apple(self.game.apple)
+    def snake_check(self):
+        self.check_out_screen()
+        self.check_eat_apple()
         
 
