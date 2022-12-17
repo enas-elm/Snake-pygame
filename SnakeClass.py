@@ -33,16 +33,16 @@ class Snake:
 
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_d:
+                if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                     self.right = True
                     self.left = self.up = self.down = False
-                elif event.key == pygame.K_q:
+                elif event.key == pygame.K_q or event.key == pygame.K_LEFT:
                     self.left = True
                     self.right = self.up = self.down = False
-                elif event.key == pygame.K_z:
+                elif event.key == pygame.K_z or event.key == pygame.K_UP:
                     self.up = True
                     self.right = self.left = self.down = False
-                elif event.key == pygame.K_s:
+                elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
                     self.down = True
                     self.up = self.left = self.right = False
 
