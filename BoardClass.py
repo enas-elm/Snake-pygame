@@ -1,7 +1,5 @@
 # pip install pygame
 import pygame 
-import sys
-import random
 
 class Board:
     def __init__(self, game):

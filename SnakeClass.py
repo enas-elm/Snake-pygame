@@ -1,6 +1,4 @@
 import pygame 
-import sys
-import random
 
 class Snake:
     def __init__(self, game):
@@ -65,7 +63,6 @@ class Snake:
             self.game.apple.rand_position_apple()
             self.score = self.score + 1
             self.length = self.length + 50
-            print(self.score)
 
             
     def snake_check(self):
