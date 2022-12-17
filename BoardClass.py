@@ -6,8 +6,7 @@ import random
 class Board:
     def __init__(self, game):
         self.game = game
-        self.tile_size = 50
-
+        self.tile_size = self.game.tile_size
 
     def draw_game(self):
         # Draw grid

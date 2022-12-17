@@ -6,7 +6,7 @@ class Apple:
     def __init__(self, game):
         self.game = game
         self.color = "#DC1446"
-        self.size = 50
+        self.size = self.game.tile_size
         self.surface = pygame.Surface((self.size,self.size))
         self.x_food = random.randrange(0, 500, self.size)
         self.y_food = random.randrange(0, 500, self.size)

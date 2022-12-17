@@ -3,10 +3,14 @@ import pygame
 import sys
 import random
 
+from os import path
+
 from SnakeClass import Snake
 from AppleClass import Apple
 from BoardClass import Board
 
+
+SCORE_FILE = 'score.txt'
 
 class Game:
     def __init__(self):
@@ -19,7 +23,7 @@ class Game:
 
         self.screen = pygame.display.set_mode((500,500))
         self.window_size = 500
-        self.tile_size = 50
+        self.tile_size = 25
         self.loop = True
 
         self.apple = Apple(self)
@@ -28,6 +32,15 @@ class Game:
 
         self.alive = True
 
+        self.load_data()
+
+    def load_data(self):
+        self.dir = path.dirname(__file__)
+        with open(path.join(self.dir, SCORE_FILE), 'r') as f:
+            try:
+                self.highscore = int(f.read())
+            except:
+                self.highscore = 0
 
     def game_loop(self): 
         while self.loop == True :
@@ -53,6 +66,19 @@ class Game:
             textRect.center = (self.window_size // 2, self.window_size // 2)
             self.screen.blit(text, textRect)
 
+
+            score_font = pygame.font.Font('freesansbold.ttf', 30)
+            self.screen.blit(score_font.render('Your score : ' + str(self.snake.score), False, '#2B5A39'), (10, 400))
+            self.screen.blit(score_font.render('Highest score : ' + str(self.highscore), False, '#2B5A39'), (10, 450))
+
+            if self.snake.score > self.highscore:
+                self.highscore = self.snake.score
+               
+                with open(path.join(self.dir, SCORE_FILE), 'w') as f:
+                    f.write(str(self.snake.score))
+            # else:
+            #     self.screen.blit(font.render(str(self.highscore), False, 'blue'), (self.window_size // 2,self.window_size // 2))
+
         font = pygame.font.SysFont('freesansbold.ttf', 30)
         text_surface = font.render(str(self.snake.score), False, '#000000')
         self.screen.blit(text_surface, (10,10))
@@ -69,8 +95,4 @@ class Game:
 
         self.snake.snake_check()
         
-
-
-
-
 Game().game_loop()

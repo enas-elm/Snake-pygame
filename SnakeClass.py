@@ -6,8 +6,8 @@ class Snake:
     def __init__(self, game):
         self.game = game
         self.color = '#2B5A39'
-        self.size = 50
-        self.length = 50
+        self.size = self.game.tile_size
+        self.length = self.size
         self.surface = pygame.Surface((self.size,self.size))
 
         self.x_snake = 200
@@ -20,19 +20,17 @@ class Snake:
 
         self.score = 0
 
-
     def move_snake(self):
+
+        pygame.time.delay(100)
+        
         if self.right == True:
-            pygame.time.delay(150)
             self.x_snake = self.x_snake + self.size
         if self.left == True:
-            pygame.time.delay(150)
             self.x_snake = self.x_snake - self.size
         if self.up == True:
-            pygame.time.delay(150)
             self.y_snake = self.y_snake - self.size
         if self.down == True:
-            pygame.time.delay(150)
             self.y_snake = self.y_snake + self.size
 
         for event in pygame.event.get():
@@ -70,9 +68,6 @@ class Snake:
             print(self.score)
 
             
-
     def snake_check(self):
         self.check_out_screen()
         self.check_eat_apple()
-        
-
