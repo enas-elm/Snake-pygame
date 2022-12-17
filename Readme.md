@@ -13,6 +13,7 @@ pip3 install pygame
 ## Launch
 
 git clone the project 
+
 Run :
 ```
 py main.py
